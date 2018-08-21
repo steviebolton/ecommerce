@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+      <div class="row">
+
+        <div class="col-lg-12">
+
+          <div class="card mt-4">
+            <img width="500" height="500" class="card-img-top img-fluid" src="{{MEDIA_URL}}{{product.image}}" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{product.name}}</h3>
+              <h4>€{{product.price}}</h4>
+              <p class="card-text">{{product.description}}</p>
+              <span class="text-warning">
+                {% for star in product.stars %}
+                <i class="fa fa-star"></i>
+                {% endfor %}
+                {% if product.needs_half_star %}
+                <i class="fa fa-star-half"></i>
+                {% endif %}                
+              </span>
+            </div>
+          </div>
+          <!-- /.card -->
+          
+          <div>
+            <form action="#" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="id" value="{{product.id}}"/>
+              <p><input type="hidden" name="quantity" value="1"/></p>
+              <p><input class="btn btn-success" type="submit" value="Add To Cart"/></p>
+            </form>
+          </div>
+          
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+{% endblock content %}
