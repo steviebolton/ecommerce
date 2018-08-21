@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for item in cart_items %}
+    
+    <p><img src="{{ MEDIA_URL }}{{ item.product.image }}"/></p>
+    <p>{{ item.product.name }}</p>
+    <p>{{ item.quantity }}</p>
+    
+    {% endfor %}
+
+
+{% endblock content %}
