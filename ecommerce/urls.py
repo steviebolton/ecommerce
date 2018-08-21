@@ -33,11 +33,11 @@ urlpatterns = [
     
 
     path('accounts/password-reset/', password_reset,
-        {'post_reset_redirect': reverse_lazy('password_reset_done')}, name='password_reset'),
-    path('accounts/password-reset/done/', password_reset_done, name='password_reset_done'),
+        {'post_reset_redirect': reverse_lazy('password_reset_done'), 'template_name': 'accounts/password_reset_form.html'}, name='password_reset'),
+    path('accounts/password-reset/done/', password_reset_done, {'template_name': 'accounts/password_reset_done.html'}, name='password_reset_done'),
     url(r'^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm,
-        {'post_reset_redirect': reverse_lazy('password_reset_complete')}, name='password_reset_confirm'),
-    path('accounts/password-reset/complete/', password_reset_complete, name='password_reset_complete'),
+        {'post_reset_redirect': reverse_lazy('password_reset_complete'), 'template_name': 'accounts/password_reset_confirm.html'}, name='password_reset_confirm'),
+    path('accounts/password-reset/complete/', password_reset_complete, {'template_name': 'accounts/password_reset_complete.html'}, name='password_reset_complete'),
     
     path('', product_list, name='product_list'),
     path('products/<id>', product_detail, name='product_detail'),
