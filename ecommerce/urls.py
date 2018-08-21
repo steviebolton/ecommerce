@@ -19,13 +19,14 @@ from django.views.static import serve
 from django.conf import settings
 from products.views import product_list, product_detail
 from accounts import urls as accounts_urls
-
+from cart import urls as cart_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', product_list, name='product_list'),
     
     path('accounts/', include(accounts_urls)),
+    path('cart/', include(cart_urls)),
     
     path('products/<id>', product_detail, name='product_detail'),
     path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),

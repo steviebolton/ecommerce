@@ -23,7 +23,7 @@
           <!-- /.card -->
           
           <div>
-            <form action="#" method="post">
+            <form action="{% url 'add_to_cart' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="id" value="{{product.id}}"/>
               <p><input type="hidden" name="quantity" value="1"/></p>
