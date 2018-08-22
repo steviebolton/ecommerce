@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from products.models import Product 
 
 
@@ -31,3 +31,16 @@ def add_to_cart(request):
     print(cart)
     
     return redirect('product_list')
+    
+    
+def remove_item(request):
+    id = request.POST['id']
+    
+    cart = request.session.get('cart', {})
+    del cart[id]
+    request.session['cart'] = cart
+
+    return redirect('view_cart')
+    
+    
+    
