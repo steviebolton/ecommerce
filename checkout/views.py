@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import OrderForm
 from .models import OrderLineItem
+from products.models import Product
+
 
 # Create your views here.
 def view_checkout(request):
@@ -26,4 +28,16 @@ def view_checkout(request):
     else:
         form = OrderForm()
     
-    return render(request, "checkout/view_checkout.html", {'form': form})
+    
+    cart = request.session.get('cart', {})
+
+    total = 0
+    cart_items = []
+    for product_id, quantity in cart.items():
+        product = get_object_or_404(Product, pk=product_id)
+        item_total = product.price * quantity
+        total += item_total
+        cart_items.append({'product':product, 'quantity': quantity, 'total': item_total})
+
+
+    return render(request, "checkout/view_checkout.html", {'form': form, 'cart_items': cart_items, 'total': total})
