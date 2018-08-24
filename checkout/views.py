@@ -24,10 +24,10 @@ def confirm_checkout(request):
     payment_form = PaymentForm(request.POST)
     
     if order_form.is_valid() and payment_form.is_valid():
-        order = order_form.save()
         
         cart = request.session.get('cart', {})
         
+        order = order_form.save()
         for product, quantity in cart.items():
             line_item = OrderLineItem(
                 order=order,
@@ -62,7 +62,7 @@ def confirm_checkout(request):
     else:
         cart = request.session.get('cart', {})
         context = get_cart_items_and_total(cart)
-        context.update({'form': form})
+        context.update({'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})
     
         return render(request, "checkout/view_checkout.html",  context)
 
